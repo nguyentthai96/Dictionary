@@ -139,6 +139,9 @@ public class SearchWordActivity extends AppCompatActivity {
         loadDataThread.execute(textWord);
     }
 
+    /**
+    * Load data from SQL Server with AsyncTask
+     * */
     public class LoadData extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {

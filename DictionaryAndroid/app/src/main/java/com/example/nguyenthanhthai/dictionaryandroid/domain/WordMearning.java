@@ -22,18 +22,21 @@ import java.util.Map;
 public class WordMearning {
     static DataAccess da;
 
+    /**
+     * Get word information with wordId
+     */
     public static Word getWord(int wordId) {
         String query = "exec spWordWithId " + wordId;
         da = new DataAccess();
         ResultSet rs = da.excuteQuery(query);
-        Word word=null;
+        Word word = null;
         try {
             while (rs.next()) {
                 int WordId = rs.getInt("WordId");
                 String WordText = rs.getString("WordText");
                 String LanguageId = rs.getString("LanguageId");
                 String Pronounce = rs.getString("Pronounce");
-                word=new Word(WordId,WordText,Pronounce);
+                word = new Word(WordId, WordText, Pronounce);
             }
         } catch (Exception ex) {
             Log.d("\n\nEX", ex.getMessage());
@@ -86,8 +89,8 @@ public class WordMearning {
         String query = "exec spMeaningWordTypeList " + word.getWordId();
         da = new DataAccess();
         ResultSet rs = da.excuteQuery(query);
-        List<WordType>  listWordType;
-        listWordType =new ArrayList<WordType>();
+        List<WordType> listWordType;
+        listWordType = new ArrayList<WordType>();
         try {
             while (rs.next()) {
                 int TypeId = rs.getInt("TypeId");
@@ -105,45 +108,45 @@ public class WordMearning {
             return null;
         }
 
-        String query = "exec spListMeaningWithType "+ word.getWordId()+ ", 'vi', "+type.getTypeId();
+        String query = "exec spListMeaningWithType " + word.getWordId() + ", 'vi', " + type.getTypeId();
         da = new DataAccess();
         ResultSet rs = da.excuteQuery(query);
 
-        List<Mearning> mearnings=new ArrayList<>();
+        List<Mearning> mearnings = new ArrayList<>();
 
         try {
             while (rs.next()) {
 
-                if (rs.getObject("ExampleId")!=null) {
-                    int exampleGroupId=rs.getInt("ExampleId");
+                if (rs.getObject("ExampleId") != null) {
+                    int exampleGroupId = rs.getInt("ExampleId");
                     String MearningText = rs.getString("MearningText");
-                    List<Example> examples =new ArrayList<>();
-                    examples=getListExample(exampleGroupId);
-                    mearnings.add(new Mearning(MearningText,examples));
-                }else {
+                    List<Example> examples = new ArrayList<>();
+                    examples = getListExample(exampleGroupId);
+                    mearnings.add(new Mearning(MearningText, examples));
+                } else {
                     String MearningText = rs.getString("MearningText");
-                    mearnings.add(new Mearning(MearningText,null));
+                    mearnings.add(new Mearning(MearningText, null));
                 }
             }
         } catch (Exception ex) {
             Log.d("\n\nEX", ex.getMessage());
         }
 
-        return  mearnings;
+        return mearnings;
     }
 
     private static List<Example> getListExample(int exampleGroupId) {
         String query = "exec spListExample " + exampleGroupId;
         da = new DataAccess();
         ResultSet rs = da.excuteQuery(query);
-        List<Example>  listExample;
-        listExample =new ArrayList<Example>();
+        List<Example> listExample;
+        listExample = new ArrayList<Example>();
         try {
             while (rs.next()) {
                 int ExampleId = rs.getInt("ExampleId");
                 String ExampleText = rs.getString("ExampleText");
                 String MearningExample = rs.getString("MearningExample");
-                listExample.add(new Example(ExampleId,ExampleText,MearningExample));
+                listExample.add(new Example(ExampleId, ExampleText, MearningExample));
             }
         } catch (Exception ex) {
             Log.d("\n\nEX", ex.getMessage());
