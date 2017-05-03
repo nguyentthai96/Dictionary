@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DictionaryAndroid</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Search text</string>
+</resources>
