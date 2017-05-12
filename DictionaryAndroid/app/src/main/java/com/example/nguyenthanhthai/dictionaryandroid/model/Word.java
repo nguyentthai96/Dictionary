@@ -88,14 +88,14 @@ public class Word implements Serializable{
         return WordMearning.getListMearning(this, type);
     }
 
-    public boolean getFavoriteWord(){
-        return WordFavorite.getCheckWordFavorite(this.wordId);
+    public boolean getFavoriteWord(String userName,String password){
+        return WordFavorite.getCheckWordFavorite(this.wordId, userName,password);
     }
 
-    public void getInsertWordFavorite() {
-        WordFavorite.getInsertWordFavorite(this.wordId);
+    public void getInsertWordFavorite(String userName,String password) {
+        WordFavorite.getInsertWordFavorite(this.wordId, userName,password);
     }
-    public void getRemoveWordFavorite() {
-        WordFavorite.getRemoveWordFavorite(this.wordId);
+    public void getRemoveWordFavorite(String userName,String password) {
+        WordFavorite.getRemoveWordFavorite(this.wordId, userName,password);
     }
 }

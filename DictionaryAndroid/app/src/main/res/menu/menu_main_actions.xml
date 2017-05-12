@@ -9,10 +9,14 @@
         app:showAsAction="always"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
-    <!-- Refresh -->
-    <!--<item android:id="@+id/action_refresh"-->
-        <!--android:icon="@drawable/ic_action_refresh"-->
-        <!--android:title="@string/action_refresh"-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--app:showAsAction="ifRoom"/>-->
+    <item android:id="@+id/acount_name"
+        android:title="Name Account"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/action_logout"
+        android:icon="@drawable/logout"
+        android:title="Logout Account"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:showAsAction="collapseActionView"/>
 </menu>

@@ -14,7 +14,7 @@ namespace InsertDatabaseSQLDictionary
         SqlConnection conn;
         SqlDataAdapter adp;
         SqlCommand cmd;
-        string strConn = "dData Source=DESKTOP-B9OLG6K;Initial Catalog=DictionaryDb;Integrated Security=True";
+        string strConn = "Data Source=DESKTOP-B9OLG6K;Initial Catalog=DictionaryDb;Integrated Security=True";
         //string strConn = "Data Source=192.168.1.102,1433;NetWork Library=DBMSSOCN;Initial Catalog=Demo;User ID=sa; Password=123";
 
         public DataProvider_DAL()

@@ -12,53 +12,62 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/wordText"
+            <LinearLayout
+                android:id="@+id/textword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="đasadfsdddddddddđfd"
-                android:textColor="#111"
-                android:textSize="30dp"
-                android:textStyle="bold" />
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageFavorite"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="10dp"
-                android:scaleType="fitEnd"
-                android:src="@drawable/unfavorite" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/wordText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="đasadfsddddddd"
+                    android:textColor="#111"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/wordPronounce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="đasadfsdddddddddđfsadf" />
 
-            <TextView
-                android:id="@+id/wordPronounce"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="đasadfsdddddddddđfsadf" />
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="10dp"
-                android:scaleType="fitEnd"
-                android:src="@drawable/ic_speak" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageFavorite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/unfavorite" />
+
+                <ImageView
+                    android:id="@+id/imageSpeek"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/ic_speak" />
+            </LinearLayout>
+        </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerMearning"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

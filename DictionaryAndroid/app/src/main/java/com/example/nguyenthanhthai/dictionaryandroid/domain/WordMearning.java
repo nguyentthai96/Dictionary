@@ -45,6 +45,24 @@ public class WordMearning {
     }
 
     /**
+     * Get word information with wordId
+     */
+    public static int getWordId(String wordText) {
+        String query = "exec spGetIdWord N'" + wordText+"'";
+        da = new DataAccess();
+        ResultSet rs = da.excuteQuery(query);
+        int WordId=-1;
+        try {
+            while (rs.next()) {
+                 WordId = rs.getInt("WordId");
+            }
+        } catch (Exception ex) {
+            Log.d("\n\nEX", ex.getMessage());
+        }
+        return WordId;
+    }
+
+    /**
      * Get list word when search with wordtext
      */
     public Collection<Word> getListWordMearning(String wordText) {

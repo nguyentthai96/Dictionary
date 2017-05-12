@@ -61,12 +61,10 @@ public class SearchWordActivity extends AppCompatActivity {
         // get the action bar
         actionBar = getSupportActionBar();
 
-        actionBar.setHomeButtonEnabled(true);
+        actionBar.setHomeButtonEnabled(false);
         // Enabling Back navigation on Action Bar icon
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.show();
-
-
     }
 
     private void addControls() {
@@ -103,6 +101,9 @@ public class SearchWordActivity extends AppCompatActivity {
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        //searchView.setIconifiedByDefault(false);
+        searchView.onActionViewExpanded();
+
 
         addEventQueryText();
 

@@ -13,10 +13,9 @@ namespace InsertDatabaseSQLDictionary
         {
             // Read each line of the file into a string array. Each element
             // of the array is one line of the file.
-            string[] lines = System.IO.File.ReadAllLines(@"D:\Desktop\DictionaryAndroid\InsertDatabaseSQLDictionary\AnhViet.dict");
+            string[] lines = System.IO.File.ReadAllLines(@"D:\Desktop\DictionaryAndroid\Dictionary\InsertDatabaseSQLDictionary\new.dict");
 
             // Display the file contents by using a foreach loop.
-            System.Console.WriteLine("Contents of WriteLines2.txt = ");
             //foreach (string line in lines)
             //{
             //    // Use a tab to indent each line of the file.
@@ -24,11 +23,11 @@ namespace InsertDatabaseSQLDictionary
             //}
 
             List<WordType> wordTypes = new List<WordType>();
-            var collection=lines.ToList().Distinct().Where(s=>(s.Length>2)&&(s.Substring(0,2).CompareTo("* ")==0));
+            var collection = lines.ToList().Distinct().Where(s => (s.Length > 2) && (s.Substring(0, 2).CompareTo("* ") == 0));
             int typeId = 1;
             foreach (var item in collection)
             {
-                WordType typeWord =new WordType() { TypeId = typeId++, TypeName = item.ToString().Substring(2) };
+                WordType typeWord = new WordType() { TypeId = typeId++, TypeName = item.ToString().Substring(2) };
                 wordTypes.Add(typeWord);
             }
 
@@ -53,7 +52,7 @@ namespace InsertDatabaseSQLDictionary
                 switch (line.ElementAtOrDefault(0))
                 {
                     case '@':
-                         word = new Word() { WordId = wordId++, Language = en};
+                        word = new Word() { WordId = wordId++, Language = en };
                         if (line.IndexOf('/') < 0)
                         {
                             word.WordText = line.Substring(1);
@@ -61,13 +60,13 @@ namespace InsertDatabaseSQLDictionary
                         }
                         else
                         {
-                            word.WordText = line.Substring(1, line.IndexOf('/')-1);
-                              word.Pronounce = line.Substring(line.IndexOf('/'));
+                            word.WordText = line.Substring(1, line.IndexOf('/') - 1);
+                            word.Pronounce = line.Substring(line.IndexOf('/'));
                         }
                         words.Add(word);
                         break;
                     case '*': //wordtype
-                        type=wordTypes.SingleOrDefault(s => s.TypeName.CompareTo(line.Substring(2)) == 0);
+                        type = wordTypes.SingleOrDefault(s => s.TypeName.CompareTo(line.Substring(2)) == 0);
                         break;
                     case '-': //mearning of wordtype
                         example = new Example();
@@ -78,8 +77,8 @@ namespace InsertDatabaseSQLDictionary
                         example.ExampleId = exampleId++;
                         try
                         {
-                            example.ExampleText = line.Substring(1, line.IndexOf('+')-1);
-                            example.MearningExample = line.Substring(line.IndexOf('+')+2);
+                            example.ExampleText = line.Substring(1, line.IndexOf('+') - 1);
+                            example.MearningExample = line.Substring(line.IndexOf('+') + 2);
                         }
                         catch (Exception)
                         {
@@ -92,7 +91,7 @@ namespace InsertDatabaseSQLDictionary
                         break;
                     case '!':
                         break;
-                    default :
+                    default:
                         //Console.WriteLine(line);
                         break;
                 }
@@ -130,7 +129,7 @@ namespace InsertDatabaseSQLDictionary
             {
                 string strErr = "";
                 string strCmd = String.Format("insert into Mearning values('{0}','{1}','{2}','{3}',N'{4}')", item.Word.WordId, item.Language.LanguageId, item.Type.TypeId, item.Example.ExampleId, item.MearningText);
-                if (item.Example.ExampleText==null)
+                if (item.Example.ExampleText == null)
                     strCmd = String.Format("insert into Mearning(WordId, LanguageId, TypeId, MearningText) values('{0}','{1}','{2}',N'{3}')", item.Word.WordId, item.Language.LanguageId, item.Type.TypeId, item.MearningText);
                 da.excuteNonQuery(strCmd, ref strErr);
             }

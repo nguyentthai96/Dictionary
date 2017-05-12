@@ -1,100 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nguyenthanhthai.dictionaryandroid">
+    package="com.example.nguyenthanhthai.dictionaryandroid"> <!-- OCR -->
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="10" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!--OCR-->
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="10" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true"
         android:xlargeScreens="true" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:name="android.hardware.camera.flash"
-        android:required="false" />
+        android:required="true" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.screen.landscape" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--/OCR-->
-
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- /OCR -->
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/dictionary"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".presentation.MainActivity">
-            <!--Defines the default searchable activity handle search.-->
-            <!--You can add this block anywhere in the manifest file either inside <application> tag or <activity> tag.-->
+
+            <!-- Defines the default searchable activity handle search. -->
+            <!-- You can add this block anywhere in the manifest file either inside <application> tag or <activity> tag. -->
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchWordActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".presentation.SearchWordActivity"
+        <activity
+            android:name=".presentation.SearchWordActivity"
             android:label="Search view"
             android:parentActivityName=".presentation.MainActivity">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.MainActivity" />
 
-            <!--Defines the searchable configuration which was written in searchable.xml file-->
+            <!-- Defines the searchable configuration which was written in searchable.xml file -->
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
 
-            <!--Should be defined as a intent filter for the activity which receives the search query.-->
+            <!-- Should be defined as a intent filter for the activity which receives the search query. -->
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".presentation.ContentWordActivity"
-            android:label="Word Mearning"
-            android:parentActivityName=".presentation.SearchWordActivity">
-        </activity>
-
-
-
-        <activity android:name="com.example.nguyenthanhthai.dictionaryandroid.ocr.PreferencesActivity" />
         <activity
-            android:name="com.example.nguyenthanhthai.dictionaryandroid.ocr.CaptureActivity"
+            android:name=".presentation.ContentWordActivity"
+            android:label="Word Mearning"
+            android:parentActivityName=".presentation.SearchWordActivity"></activity>
+        <activity android:name=".ocr.PreferencesActivity" />
+        <activity
+            android:name=".ocr.CaptureActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity
-            android:name="com.example.nguyenthanhthai.dictionaryandroid.ocr.HelpActivity"
+            android:name=".ocr.HelpActivity"
             android:screenOrientation="user">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".presentation.SelectWordActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

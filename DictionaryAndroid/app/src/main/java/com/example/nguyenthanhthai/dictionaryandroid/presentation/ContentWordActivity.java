@@ -2,7 +2,10 @@ package com.example.nguyenthanhthai.dictionaryandroid.presentation;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -23,19 +26,29 @@ import com.example.nguyenthanhthai.dictionaryandroid.domain.WordFavorite;
 import com.example.nguyenthanhthai.dictionaryandroid.domain.WordMearning;
 import com.example.nguyenthanhthai.dictionaryandroid.model.Word;
 
+import java.util.Locale;
+
 /**
  * Created by NguyenThanhThai on 3/27/2017.
  */
 
 public class ContentWordActivity extends AppCompatActivity{
     ActionBar actionBar;
-    private RecyclerView recyclerView;
     Word word;
+
+    String userNameLogin, password;
+    TextToSpeech textToSpeech;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_word);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        userNameLogin=sharedPreferences.getString("UserName", "sa");
+        password=sharedPreferences.getString("Password", "123");
 
         getActionMyBar();
         addControls();
@@ -44,25 +57,49 @@ public class ContentWordActivity extends AppCompatActivity{
 
 
     TextView wordText,wordPronounce;
-    ImageView imageFavorite;
+    ImageView imageFavorite,imageSpeck;
     private void addControls() {
         wordText= (TextView) findViewById(R.id.wordText);
         wordPronounce= (TextView) findViewById(R.id.wordPronounce);
         imageFavorite= (ImageView) findViewById(R.id.imageFavorite);
+        imageSpeck= (ImageView) findViewById(R.id.imageSpeek);
     }
 
     private void addEvents() {
         imageFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (word.getFavoriteWord()){
+                if(userNameLogin.equals("sa")){
+                    Toast.makeText(ContentWordActivity.this, "You are not login!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (word.getFavoriteWord(userNameLogin,password)){
                     imageFavorite.setImageResource(R.drawable.unfavorite);
-                    word.getRemoveWordFavorite();
+                    word.getRemoveWordFavorite(userNameLogin,password);
                 }
                 else {
                     imageFavorite.setImageResource(R.drawable.favorite);
-                    word.getInsertWordFavorite();
+                    word.getInsertWordFavorite(userNameLogin,password);
                 }
+            }
+        });
+
+
+        textToSpeech=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    textToSpeech.setLanguage(Locale.US);
+                }
+            }
+        });
+
+        imageSpeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                textToSpeech.speak(word.getWordText(), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
     }
@@ -110,9 +147,12 @@ public class ContentWordActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
+        userNameLogin=sharedPreferences.getString("UserName", "sa");
+        password=sharedPreferences.getString("Password", "123");
+
         wordText.setText(word.getWordText());
         wordPronounce.setText(word.getPronounce());
-        if (word.getFavoriteWord()){
+        if (word.getFavoriteWord(userNameLogin,password)){
             imageFavorite.setImageResource(R.drawable.favorite);
         }
         else {

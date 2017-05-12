@@ -13,18 +13,17 @@ import java.sql.SQLException;
  */
 
 public class ConnectionSql {
-    static String ip = "192.168.43.136:1433";
+
     static String classs = "net.sourceforge.jtds.jdbc.Driver";
     static String db = "DictionaryDb";
-    static String un = "sa";
-    static String password = "123";
 
     @SuppressLint("NewApi")
-    public static Connection connectString() {
+    public static Connection connectString( String ip, String un, String password) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Connection conn = null;
         String ConnURL = null;
+
         try {
             Class.forName(classs);
             final String  driver="jdbc:jtds:sqlserver://";

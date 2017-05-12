@@ -55,9 +55,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nguyenthanhthai.dictionaryandroid.R;
+import com.example.nguyenthanhthai.dictionaryandroid.adapter.SelectWordAdapter;
 import com.example.nguyenthanhthai.dictionaryandroid.ocr.camera.CameraManager;
 import com.example.nguyenthanhthai.dictionaryandroid.ocr.camera.ShutterButton;
 import com.example.nguyenthanhthai.dictionaryandroid.ocr.language.LanguageCodeHelper;
+import com.example.nguyenthanhthai.dictionaryandroid.presentation.SearchWordActivity;
+import com.example.nguyenthanhthai.dictionaryandroid.presentation.SelectWordActivity;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 import java.io.File;
@@ -833,9 +836,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 //            setProgressBarVisibility(false);
 //        }
         Log.d("ORC","CaptureActivity OCR result="+ocrResult.getText());
-        Intent intent=getIntent();
+        Intent intent=new Intent(this, SelectWordActivity.class);
         intent.putExtra("OCRResultString",ocrResult.getText());
-        setResult(33,intent); //33 mã kết quả trả về
+        startActivity(intent); //33 mã kết quả trả về
         finish();
         //TODO cmt///
         return true;
